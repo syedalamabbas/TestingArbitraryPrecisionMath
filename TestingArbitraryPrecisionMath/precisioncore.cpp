@@ -3183,7 +3183,7 @@ float_precision _float_precision_inverse( const float_precision& a )
    unsigned int precision;
    int i, expo;
    double fv, fu;
-   float_precision r, u, v, c2;
+   float_precision r(+0.0), u(+0.0), v(+0.0), c2(+0.0);
    std::string::reverse_iterator rpos;
    std::string::iterator pos;
    std::string *p;
@@ -3350,9 +3350,9 @@ float_precision sqrt(const float_precision& x)
 	unsigned int digits;
 	int expo, expo_sq;
 	double fv;
-	float_precision r, u, v, tmp;
-	const float_precision c0(0), c1(1), c3(3);
-	const float_precision c05(0.5);
+	float_precision r(+0.0), u(+0.0), v(+0.0), tmp(+0.0);
+	const float_precision c0(+0.0), c1(+1.0), c3(+3.0);
+	const float_precision c05(+0.5);
 	std::string::reverse_iterator rpos;
 	std::string::iterator pos;
 
@@ -3363,8 +3363,18 @@ float_precision sqrt(const float_precision& x)
 		throw float_precision::domain_error(); return x;
 		}
 	precision = x.precision();
+
+	/* Bug fix on 5/8/2017 by Syed Alam Abbas at 3.34 AM  */
+	/*
 	v.precision(precision + extra);
 	v = x;
+	This operation gives from xstring class
+	// report an out_of_range error
+	_Xout_of_range("invalid string position");
+	*/
+	v = x;
+	v.precision(precision + extra);
+	
 	expo = v.exponent();
 	expo_sq = expo / 2;
 	v.exponent(expo - 2 * expo_sq);

@@ -1196,7 +1196,7 @@ inline float_precision& float_precision::operator+=( const float_precision& a )
 //
 inline float_precision& float_precision::operator-=( const float_precision& a )
    {
-   float_precision b;
+   float_precision b(+0.0);
 
    b.precision( a.precision() ); 
    b.mode( a.mode() );
@@ -1282,7 +1282,7 @@ inline float_precision& float_precision::operator/=( const float_precision& a )
    if( mNumber.length() == 2 && FDIGIT( mNumber[1] ) == 0 ) // If divisor is zero the result is zero
       return *this;
 
-   float_precision c;
+   float_precision c(+0.0);
 
    c.precision( a.precision() );
    if( a.precision() < mPrec )

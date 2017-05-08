@@ -42,6 +42,8 @@ void TestIntegerPrecisionArithmatic()
 
 void TestFloatingPrecisionAritmatic()
 {
+	cout << endl << endl;
+	cout << "Testing floating precision here !" << endl;
 	float_precision f1("34684646465465466546435432463.235456464464646E678", 100, round_mode::ROUND_ZERO); // String
 	float_precision f2("34684644736425464694665654646.4676979715464E678", 100, round_mode::ROUND_ZERO); // String
 
@@ -51,6 +53,11 @@ void TestFloatingPrecisionAritmatic()
 	cout << "Result of addition = " << (f1+f2) << endl;
 
 	cout << "Result of multiplication !!!! = " << (f1 * f2) << endl;
+
+	float_precision localPI = _float_table(_PI, 25); // Recalculation required because has bug
+								// the initial value was computed to
+								// 20 digits of precision.
+	cout << "Pi value upto 25 digits precision is " << localPI << endl;
 }
 
 
